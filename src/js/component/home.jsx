@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useCallback } from "react";
+import React, {useState, useEffect, useRef } from "react";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
@@ -9,8 +9,8 @@ const Home = () => {
 	const [playlist, setPlaylist] = useState([]);
 	let [positionList, setPositionList] = useState(0);
 	const [iconAudio, setIconAudio] = useState("fa fa-play");
+	let [songName, setSongName] = useState("");
 	let songUrl = useRef();
-	
 
 	useEffect(() => {
 		fetch("https://assets.breatheco.de/apis/sound/songs")
@@ -34,7 +34,6 @@ const Home = () => {
 			setIconAudio("fa fa-play");
 		}		
 		setPositionList(index);
-		console.log(positionList);
 						
 	}
 
@@ -42,7 +41,6 @@ const Home = () => {
 		if (songUrl.current.paused) {
 			songUrl.current.play();
 			setIconAudio("fa fa-pause");
-			log
 		} else {
 			songUrl.current.pause();
 			setIconAudio("fa fa-play");
@@ -54,16 +52,25 @@ const Home = () => {
 
 	function atras(){
 		setPositionList(positionList--);
+		if (positionList > 0) {
 		songUrl.current.src = `https://assets.breatheco.de/apis/sound/${playlist[positionList].url}`;
 		songUrl.current.play();
 		console.log(positionList);
+	} else {
+		console.log("no hay mas canciones");
+	}
 	}
 
 	function adelante(){
+		if (positionList < (playlist.length - 1)) {
 		setPositionList(positionList++);
 		songUrl.current.src = `https://assets.breatheco.de/apis/sound/${playlist[positionList].url}`;
 		songUrl.current.play();
-		console.log(positionList);
+
+	} else {
+		console.log("no hay mas canciones");
+	}
+	
 	}
 
 	function cambiarVolumen(volumen){
@@ -80,6 +87,9 @@ const Home = () => {
 	
 		<div className="d-flex justify-content-center bg-dark border-top">
 			<div className="mt-3">
+				<div className="text-white text-center ">
+					<h5 className="fw-ligh">{songName}</h5>
+				</div>
 				<div>
 		<audio ref={songUrl} id="reproductor"/>	
 		<button type="button" onClick={atras}  className="btn btn-light btn-lg mx-3 mb-3"><i className="fa fa-backward"></i></button> 
