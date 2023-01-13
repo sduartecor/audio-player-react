@@ -9,3 +9,36 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+.list {
+    height: 500px;
+    overflow: scroll;
+    overflow-x: hidden;
+    margin: auto;
+    margin-top: 25px;
+}
+
+.list::-webkit-scrollbar {
+    width: 9px;
+    background-color: rbg(33, 37, 41);
+}
+
+
+.list::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 6px;
+}
+
+.list::-webkit-scrollbar-corner {
+    display: none;
+}
+
+.list::-webkit-scrollbar-track {
+    background-color: black;
+}
+
+.progress-bar {
+    height: 5px;
+    background-color: white;
+    width: 0%;
+    transition: width 0.2s linear;
+}

@@ -11,6 +11,7 @@ const Home = () => {
 	const [iconAudio, setIconAudio] = useState("fa fa-play");
 	let [songName, setSongName] = useState("");
 	let songUrl = useRef();
+	const progressBarRef = useRef();
 
 	useEffect(() => {
 		fetch("https://assets.breatheco.de/apis/sound/songs")
@@ -77,41 +78,62 @@ const Home = () => {
 		songUrl.current.volume = volumen / 100;
 	}
 
+	useEffect(() => {
+		if (songUrl.current && progressBarRef.current) {
+			progressBarRef.current.style.width = `${(songUrl.current.currentTime / songUrl.current.duration) * 100}%`;
+		}
+	}, [songUrl.current]);
+
 	return (
 		<>
-		<div className="container w-50">
+		<div className="container w-50 ">
 		
-		<div className="list-group bg-dark rounded-0">
+		<div className="list-group bg-dark rounded-0 list ">
 			{playlist.map((song,index) => <button className="btn btn-dark text-start rounded-0" onClick={() => selectSong(song.url,index)} type="button" key={index}>{index} {song.name} -</button>)}
 		</div>
 	
 		<div className="d-flex justify-content-center bg-dark border-top">
-			<div className="mt-3">
-				<div className="text-white text-center ">
-					<h5 className="fw-ligh">{songName}</h5>
-				</div>
+			<div className="mt-3 ">
 				<div>
-		<audio ref={songUrl} id="reproductor"/>	
+		<audio ref={songUrl} id="reproductor"  onTimeUpdate={() => {
+						let currentTimePercent = (songUrl.current.currentTime / songUrl.current.duration) * 100;
+						progressBarRef.current.style.width = currentTimePercent + "%";
+				}}/>	
 		<button type="button" onClick={atras}  className="btn btn-light btn-lg mx-3 mb-3"><i className="fa fa-backward"></i></button> 
 		<button type="button" onClick={controlAudio} className="btn btn-light btn-lg mx-3 mb-3"><i className={iconAudio}></i></button>
 		<button type="button"  onClick={adelante} className="btn btn-light btn-lg mx-3 mb-3"><i className="fa fa-forward"></i></button>
 		</div>
 
-		<div className="mb-3">
 		
-		
-			<div className="range ">
-  		<input type="range" className="form-range" min="0" max="100" onChange={(e) => cambiarVolumen(e.target.value)} id="customRange1" />
-			</div>
 
-	</div>
 		
+
 		</div>		
+
+		
+
 	</div>
 
+	<div className="text-white d-flex justify-content-center  bg-dark"> 
+
+<i className="fas fa-volume-down mx-2"></i>
+	<div className="range">
+  <input type="range" className="form-range" min="0" max="100" onChange={(e) => cambiarVolumen(e.target.value)} id="customRange1" />
+	</div>
+
+	<i className="fas fa-volume-up mx-2"></i>
 	
-		
 		</div>
+
+		<div className="bg-dark"> 
+		
+	
+		<div className="progress-bar" ref={progressBarRef}></div>
+		</div>
+</div>
+
+
+
 		
 		</>
 	);
