@@ -42,3 +42,7 @@
     width: 0%;
     transition: width 0.2s linear;
 }
+
+#rangeVolume {
+    width: 12em;
+}
