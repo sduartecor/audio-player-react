@@ -122,7 +122,8 @@ const Home = () => {
 		//Random Song
 	function randomSong(){
 		let number = Math.floor(Math.random() * playlist.length) + 1;
-		songUrl.current.src = `https://assets.breatheco.de/apis/sound/${playlist[number].url}`;
+		setPositionList(number);
+		songUrl.current.src = `https://assets.breatheco.de/apis/sound/${playlist[positionList].url}`;
 		songUrl.current.play();
 		setIconAudio("fa fa-pause");
 		getName();
