@@ -19,7 +19,6 @@
 
 .list::-webkit-scrollbar {
     width: 9px;
-    background-color: rbg(33, 37, 41);
 }
 
 

@@ -28,17 +28,11 @@ const Home = () => {
 
 		//Seleccionar Cnacion
 	function selectSong(url, index,name){
-
-		if(songUrl.current.paused){
-			songUrl.current.src = `https://assets.breatheco.de/apis/sound/${url}`;
-			songUrl.current.play();
-			setIconAudio("fa fa-pause");
+		
+		songUrl.current.src = `https://assets.breatheco.de/apis/sound/${url}`;
+		songUrl.current.play();
+		setIconAudio("fa fa-pause");
 	
-		}else{
-			songUrl.current.pause();
-			setIconAudio("fa fa-play");
-			
-		}		
 		setPositionList(index);
 		setSongName(name);
 						
