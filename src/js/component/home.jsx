@@ -128,7 +128,7 @@ const Home = () => {
 		<div className="container w-50 ">
 		<div className="shadow-lg bg-body-tertiary rounded">
 		<div className="list-group bg-dark rounded-0 list ">
-			{playlist.map((song,index) => <button className="btn btn-dark text-start rounded-0" onClick={() => selectSong(song.url,index,song.name)} type="button" key={index}>{index} {song.name} -</button>)}
+			{playlist.map((song,index) => <button className="btn btn-dark text-start rounded-0" onClick={() => selectSong(song.url,index,song.name)} type="button" key={index}>{index}  {song.name}</button>)}
 		</div>
 	
 		<div className="d-flex justify-content-center bg-dark border-top">
